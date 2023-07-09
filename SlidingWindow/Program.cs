@@ -8,7 +8,6 @@ namespace SlidingWindow
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
             Console.WriteLine(Program.MaxSumSubArray(new int[] { 3, 1, 1, 2, 4, 4 }, 3));
             Console.WriteLine(Program.FirstNegativeNumbersInWindow(new int[] { 12, -1, -7, 8, -15, 30, 16, 28 }, 3));
             Console.WriteLine(Program.OccurenceOfAnagram("forxxorfxdofr", "for"));
