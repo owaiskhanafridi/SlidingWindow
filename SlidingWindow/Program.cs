@@ -8,11 +8,11 @@ namespace SlidingWindow
     {
         static void Main(string[] args)
         {
-            Console.WriteLine(Program.MaxSumSubArray(new int[] { 3, 1, 1, 2, 4, 4 }, 3));
-            Console.WriteLine(Program.FirstNegativeNumbersInWindow(new int[] { 12, -1, -7, 8, -15, 30, 16, 28 }, 3));
-            Console.WriteLine(Program.OccurenceOfAnagram("forxxorfxdofr", "for"));
+            //Console.WriteLine(Program.MaxSumSubArray(new int[] { 3, 1, 1, 2, 4, 4 }, 3));
+            //Console.WriteLine(Program.FirstNegativeNumbersInWindow(new int[] { 12, -1, -7, 8, -15, 30, 16, 28 }, 3));
+            //Console.WriteLine(Program.OccurenceOfAnagram("forxxorfxdofr", "for"));
             Console.WriteLine(Program.MaxOfAllSubArray(new int[] { 1, 7, 3, -1, 2, 8, 6, 1 }, 3));
-            Console.WriteLine(Program.LargestSubArrayOfSum(new int[] { 4, 1, 1, 1, 2, 3, 5 }, 5));
+            //Console.WriteLine(Program.LargestSubArrayOfSum(new int[] { 4, 1, 1, 1, 2, 3, 5 }, 5));
 
             Console.ReadLine();
         }
@@ -119,7 +119,7 @@ namespace SlidingWindow
 
             for (int end = 0; end < array.Length; end++)
             {
-                //remove all elements less than current element array[j] 
+                //remove all elements less than current element array[end] 
                 //because those element wont be usefull in the future.
                 if (temp.Count > 0)
                     temp = new Queue<int>(temp.Where(x => x > array[end]));
@@ -136,16 +136,15 @@ namespace SlidingWindow
 
                     //If first element of temporary queue is equal to starting element, 
                     //then remove it from temp queue since window will be sliding and 
-                    //new start position will one element after that.
+                    //new start position will be one element after that.
                     if (temp.Peek() == array[start])
                         temp.Dequeue();
 
-                    //slide the window one step.
+                    //slide the window one step further.
                     start++;
                 }
             }
             return maxList.ToArray();
-
         }
 
         public static int LargestSubArrayOfSum(int[] array, int targetSum)
