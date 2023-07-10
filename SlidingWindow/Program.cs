@@ -11,8 +11,9 @@ namespace SlidingWindow
             //Console.WriteLine(Program.MaxSumSubArray(new int[] { 3, 1, 1, 2, 4, 4 }, 3));
             //Console.WriteLine(Program.FirstNegativeNumbersInWindow(new int[] { 12, -1, -7, 8, -15, 30, 16, 28 }, 3));
             //Console.WriteLine(Program.OccurenceOfAnagram("forxxorfxdofr", "for"));
-            Console.WriteLine(Program.MaxOfAllSubArray(new int[] { 1, 7, 3, -1, 2, 8, 6, 1 }, 3));
+            //Console.WriteLine(Program.MaxOfAllSubArray(new int[] { 1, 7, 3, -1, 2, 8, 6, 1 }, 3));
             //Console.WriteLine(Program.LargestSubArrayOfSum(new int[] { 4, 1, 1, 1, 2, 3, 5 }, 5));
+            Console.WriteLine(Program.FindMaxAverageOfWindow(new int[] { 1, 12, -5, -6, 50, 3 }, 4));
 
             Console.ReadLine();
         }
@@ -173,6 +174,26 @@ namespace SlidingWindow
 
         }
 
+        //Find maximum average of given window size of sub array
+        public static double FindMaxAverageOfWindow(int[] nums, int k)
+        {
+            double Mav = int.MinValue;
+            int start = 0;
+            int Rsum = 0;
 
+            for (int end = 0; end < nums.Length; end++)
+            {
+                Rsum += nums[end];
+
+                if (end - start + 1 == k)
+                {
+                    Mav = Math.Max(Mav, (double) Rsum / k);
+                    Rsum -= nums[start];
+                    start++;
+                }
+            }
+
+            return Mav;
+        }
     }
 }
