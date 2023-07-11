@@ -13,8 +13,8 @@ namespace SlidingWindow
             //Console.WriteLine(Program.OccurenceOfAnagram("forxxorfxdofr", "for"));
             //Console.WriteLine(Program.MaxOfAllSubArray(new int[] { 1, 7, 3, -1, 2, 8, 6, 1 }, 3));
             //Console.WriteLine(Program.LargestSubArrayOfSum(new int[] { 4, 1, 1, 1, 2, 3, 5 }, 5));
-            Console.WriteLine(Program.FindMaxAverageOfWindow(new int[] { 1, 12, -5, -6, 50, 3 }, 4));
-
+            //Console.WriteLine(Program.FindMaxAverageOfWindow(new int[] { 1, 12, -5, -6, 50, 3 }, 4));
+            Console.WriteLine(Program.GoodSubStrings("xyzzazcd"));
             Console.ReadLine();
         }
 
@@ -28,14 +28,14 @@ namespace SlidingWindow
             for (int end = 0; end < arraySize; end++)
             {
                 sum += array[end];
-                
+
                 //window size reached
                 if (end - start + 1 == windowSize)
                 {
                     maxSum = Math.Max(sum, maxSum);
                     //eliminate first element
                     sum -= array[start];
-                    
+
                     //slide the window
                     start++;
                 }
@@ -194,6 +194,49 @@ namespace SlidingWindow
             }
 
             return Mav;
+        }
+
+
+        //A string is good if there are no repeated characters.
+        //Given a string s​​​​​, return the number of good substrings of length three in s​​​​​​.
+        //Note that if there are multiple occurrences of the same substring, every occurrence should be counted.
+        //A substring is a contiguous sequence of characters in a string.
+        //Input = xyzzazcd, Output = 1
+        public static int GoodSubStrings(string s)
+        {
+            Dictionary<char, int> visited = new Dictionary<char, int>();
+            int start = 0;
+            int goodTimes = 0;
+
+            for (int end = 0; end < s.Length; end++)
+            {
+                if (visited.ContainsKey(s[end]))
+                    visited[s[end]]++;
+                else
+                    visited.Add(s[end], 1);
+
+                if (end - start + 1 == 3)
+                {
+                    //add goodtimes if all the elements occured once ensuring uniqueness
+                    if (visited.All(x => x.Value == 1))
+                        goodTimes++;
+
+                    if (visited[s[start]] == 1)
+                    {
+                        //slide window: remove element if it only occured once in current substring
+                        visited.Remove(s[start]);
+                    }
+                    else
+                    {
+                        //slide window: decrease count if it occured more than once
+                        //this ensures we do not remove an element which occured multiple times 
+                        //in current substring
+                        visited[s[start]]--;
+                    }
+                    start++;
+                }
+            }
+            return goodTimes;
         }
     }
 }
