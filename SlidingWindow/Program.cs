@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 
 namespace SlidingWindow
 {
@@ -14,8 +15,8 @@ namespace SlidingWindow
             //Console.WriteLine(Program.MaxOfAllSubArray(new int[] { 1, 7, 3, -1, 2, 8, 6, 1 }, 3));
             //Console.WriteLine(Program.LargestSubArrayOfSum(new int[] { 4, 1, 1, 1, 2, 3, 5 }, 5));
             //Console.WriteLine(Program.FindMaxAverageOfWindow(new int[] { 1, 12, -5, -6, 50, 3 }, 4));
-            Console.WriteLine(Program.GoodSubStrings("xyzzazcd"));
-
+            //Console.WriteLine(Program.GoodSubStrings("xyzzazcd"));
+            Console.WriteLine(Program.MinimumRecolors("WBBWWBBWBW", 7));
             Console.ReadLine();
         }
 
@@ -188,7 +189,7 @@ namespace SlidingWindow
 
                 if (end - start + 1 == k)
                 {
-                    Mav = Math.Max(Mav, (double) Rsum / k);
+                    Mav = Math.Max(Mav, (double)Rsum / k);
                     Rsum -= nums[start];
                     start++;
                 }
@@ -238,6 +239,24 @@ namespace SlidingWindow
                 }
             }
             return goodTimes;
+        }
+
+        //Find number of minimum operation required to get K consecutive substring
+        //by flipping 'W' (white color) to 'B' (black color)
+        public static int MinimumRecolors(string blocks, int k)
+        {
+            int minOp = int.MaxValue;
+
+            for (int itr = 0; itr < blocks.Length; itr++)
+            {
+                //run until the substring stays under the blocks Length
+                if (itr + k > blocks.Length)
+                    break;
+
+                minOp = Math.Min(minOp, blocks.Substring(itr, k).Count(x => x == 'W'));
+            }
+
+            return minOp;
         }
     }
 }
